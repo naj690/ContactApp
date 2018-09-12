@@ -1,6 +1,7 @@
 package com.pyromania.contactapp;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvContactTitle;
     Button btnAdd;
     ImageView ivType, ivCall, ivWeb, ivLocation;
+
+    final int INPUT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, com.pyromania.contactapp.Input.class);
-                startActivity(intent);
+                startActivityForResult(intent, INPUT);
             }
         });
+    }
+
+    // Method needed to get back result from INPUT activity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
