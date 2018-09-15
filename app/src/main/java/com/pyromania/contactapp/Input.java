@@ -47,15 +47,36 @@ public class Input extends AppCompatActivity {
                     }
                 });
 
+                Intent intentActive = new Intent();
+                intentActive.putExtra("active", active);
+                setResult(RESULT_OK, intentActive);
+
                 // see if all required fields are entered
                 if (etName.getText().toString().isEmpty() || etNumber.getText().toString().isEmpty() || etWebsite.getText().toString().isEmpty() || etLocation.getText().toString().isEmpty()) {
                     Toast.makeText(Input.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = etName.getText().toString().trim();
+                    int phone = Integer.parseInt(etNumber.getText().toString().trim());
+                    String web = etWebsite.getText().toString().trim();
+                    String location = etLocation.getText().toString().trim();
 
-                    Intent intent = new Intent();
-                    intent.putExtra("name", name);
-                    setResult(RESULT_OK, intent);
+                    Intent intentName = new Intent();
+                    intentName.putExtra("name", name);
+                    setResult(RESULT_OK, intentName);
+
+                    Intent intentPhone = new Intent();
+                    intentPhone.putExtra("phone",phone);
+                    setResult(RESULT_OK, intentPhone);
+
+                    Intent intentWeb = new Intent();
+                    intentWeb.putExtra("website", web);
+                    setResult(RESULT_OK, intentWeb);
+
+                    Intent intentLocation = new Intent();
+                    intentLocation.putExtra("location", location);
+                    setResult(RESULT_OK, intentLocation);
+
+                    Input.this.finish();
                 }
             }
         });
