@@ -14,7 +14,7 @@ public class Input extends AppCompatActivity {
     EditText etName, etNumber, etWebsite, etLocation;
     ImageView ivSunny, ivNight;
     Button btnSubmit;
-    String active;
+    String active = "unselected";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +29,27 @@ public class Input extends AppCompatActivity {
         ivNight = findViewById(R.id.ivNight);
         btnSubmit = findViewById(R.id.btnSubmit);
 
+        // select active period either day or night
+        ivSunny.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                active = "day";
+            }
+        });
+
+        ivNight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                active = "night";
+            }
+        });
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // select active period either day or night
-                ivSunny.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        active = "day";
-                    }
-                });
-
-                ivNight.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        active = "night";
-                    }
-                });
-
-                Intent intentActive = new Intent();
-                intentActive.putExtra("active", active);
-                setResult(RESULT_OK, intentActive);
 
                 // see if all required fields are entered
-                if (etName.getText().toString().isEmpty() || etNumber.getText().toString().isEmpty() || etWebsite.getText().toString().isEmpty() || etLocation.getText().toString().isEmpty()) {
+                if (etName.getText().toString().isEmpty() || etNumber.getText().toString().isEmpty() || etWebsite.getText().toString().isEmpty() || etLocation.getText().toString().isEmpty() || active.equals("unselected")) {
                     Toast.makeText(Input.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = etName.getText().toString().trim();
@@ -60,21 +57,14 @@ public class Input extends AppCompatActivity {
                     String web = etWebsite.getText().toString().trim();
                     String location = etLocation.getText().toString().trim();
 
-                    Intent intentName = new Intent();
-                    intentName.putExtra("name", name);
-                    setResult(RESULT_OK, intentName);
+                    Intent intent = new Intent();
+                    intent.putExtra("name", name);
+                    intent.putExtra("phone",phone);
+                    intent.putExtra("website", web);
+                    intent.putExtra("location", location);
+                    intent.putExtra("active", active);
 
-                    Intent intentPhone = new Intent();
-                    intentPhone.putExtra("phone",phone);
-                    setResult(RESULT_OK, intentPhone);
-
-                    Intent intentWeb = new Intent();
-                    intentWeb.putExtra("website", web);
-                    setResult(RESULT_OK, intentWeb);
-
-                    Intent intentLocation = new Intent();
-                    intentLocation.putExtra("location", location);
-                    setResult(RESULT_OK, intentLocation);
+                    setResult(RESULT_OK, intent);
 
                     Input.this.finish();
                 }
