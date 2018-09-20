@@ -53,7 +53,7 @@ public class Input extends AppCompatActivity {
                     Toast.makeText(Input.this, "Please complete all fields!", Toast.LENGTH_SHORT).show();
                 } else {
                     String name = etName.getText().toString().trim();
-                    int phone = Integer.parseInt(etNumber.getText().toString().trim());
+                    String phone = etNumber.getText().toString().trim();
                     String web = etWebsite.getText().toString().trim();
                     String location = etLocation.getText().toString().trim();
 

@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvContactTitle, tvTest;
     Button btnAdd;
     ImageView ivType, ivCall, ivWeb, ivLocation;
+    String frontPic, telephone, web, location;
 
     final int INPUT = 2;
 
@@ -54,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == INPUT) {
             if (resultCode == RESULT_OK) {
-                String frontPic = data.getStringExtra("active");
-                int telephone = Integer.parseInt(data.getStringExtra("phone"));
+                frontPic = data.getStringExtra("active");
+                telephone = data.getStringExtra("phone");
+                web = data.getStringExtra("website");
+                location = data.getStringExtra("location");
 
 
                 ivType.setVisibility(View.VISIBLE);
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 ivCall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: " + telephone));
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + telephone));
                         startActivity(intent);
                     }
                 });
@@ -84,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 ivWeb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + web));
+                        startActivity(intent);
                     }
                 });
 
@@ -92,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 ivLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + location));
+                        startActivity(intent);
                     }
                 });
             }
