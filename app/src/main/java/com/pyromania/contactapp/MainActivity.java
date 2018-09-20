@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 ivLocation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + location));
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + location));
                         startActivity(intent);
                     }
                 });
